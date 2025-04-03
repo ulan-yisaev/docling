@@ -250,9 +250,9 @@ class HTMLDocumentBackend(DeclarativeDocumentBackend):
         hlevel = int(element.name.replace("h", ""))
         text = element.text.strip()
 
-        if hlevel == 1:
-            self.content_layer = ContentLayer.BODY
+        self.content_layer = ContentLayer.BODY
 
+        if hlevel == 1:
             for key in self.parents.keys():
                 self.parents[key] = None
 
@@ -287,7 +287,7 @@ class HTMLDocumentBackend(DeclarativeDocumentBackend):
             self.parents[hlevel] = doc.add_heading(
                 parent=self.parents[hlevel - 1],
                 text=text,
-                level=hlevel,
+                level=hlevel - 1,
                 content_layer=self.content_layer,
             )
 
